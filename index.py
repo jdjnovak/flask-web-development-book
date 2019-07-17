@@ -1,9 +1,8 @@
-from flask import Flask, render_template
-from flask import request
-from flask import make_response
-from flask import redirect
+from flask import Flask, render_template, request, make_response, redirect
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 @app.route('/')
 def index():
