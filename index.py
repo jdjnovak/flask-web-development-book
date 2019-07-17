@@ -19,3 +19,8 @@ def user(name):
 def browser():
     user_agent = request.headers.get('User-Agent')
     return '<p>Your browser is {}</p>'.format(user_agent)
+
+@app.route('/template_inheritance')
+def temp_inher():
+    return render_template('example_template.html')
+
