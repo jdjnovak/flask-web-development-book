@@ -1,15 +1,19 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask import request
+from flask import make_response
+from flask import redirect
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return '<h1>Hello, world!</h1>'
+    return render_template('index.html')
+
 
 @app.route('/user/<name>')
 def user(name):
-    return '<h1>Hello, {}!</h1>'.format(name)
+    return render_template('user.html', name=name)
+
 
 @app.route('/browser')
 def browser():
