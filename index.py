@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response, redirect
+from flask import Flask, render_template, request, make_response, redirect, session, url_for
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -18,12 +18,11 @@ app.config['SECRET_KEY'] = 'oHsOsEcReTkEy6969'
 ################### App Routes #########################
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    name = None
     form = NameForm()
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
-    return render_template('index.html', form=form, name=name)
+        session['name'] = form.name.data
+        return redirect(url_for('index'))
+    return render_template('index.html', form=form, name=session.get('name'))
 
 
 @app.route('/user/<name>')
