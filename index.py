@@ -5,6 +5,7 @@ from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 from datetime import datetime
 
@@ -27,6 +28,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 ###################### Database ########################
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 ################### App Routes #########################
 @app.route('/', methods=['GET', 'POST'])
@@ -63,6 +65,11 @@ def browser():
 @app.route('/template_inheritance')
 def temp_inher():
     return render_template('example_template.html')
+
+
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db, User=User, Role=Role)
 
 
 ################# App Error Pages ####################
